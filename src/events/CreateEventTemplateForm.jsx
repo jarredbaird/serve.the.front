@@ -5,7 +5,7 @@ import "../account/AuthForm.css";
 import { DataContext } from "../contexts/DataContext";
 import FormSelectParts from "../common/FormSelectParts";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 const CreateEventTemplateForm = () => {
   const history = useHistory();

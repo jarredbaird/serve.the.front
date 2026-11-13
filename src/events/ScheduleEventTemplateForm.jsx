@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import { DataContext } from "../contexts/DataContext";
 import "react-datepicker/dist/react-datepicker.css";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 const ScheduleEventTemplateForm = () => {
   const history = useHistory();
