@@ -5,9 +5,9 @@ import { UserContext } from "../contexts/UserContext";
 
 import "./AuthForm.css";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
-const SignUpForm = () => {
+const SignInForm = () => {
   const { currentUser, setToken } = useContext(UserContext);
   const history = useHistory();
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -25,7 +25,8 @@ const SignUpForm = () => {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     try {
-      let result = await axios.post(`${BASE_URL}/users/`, formData);
+      let result = await axios.post(`${BASE_URL}/auth/get-token`, formData);
+
       // let result = {
       //   data: formData,
       //   success: true,
@@ -39,7 +40,7 @@ const SignUpForm = () => {
         setFormErrors(result.errors);
       }
     } catch (e) {
-      setFormErrors(e.response.data.error.message);
+      setFormErrors(e.message);
     }
   };
 
@@ -50,8 +51,8 @@ const SignUpForm = () => {
           {`${formErrors}`}
         </div>
       ) : null}
-      <h1 className="d-flex justify-content-center">signup.</h1>
-      <h3 className="d-flex justify-content-center">help us out!</h3>
+      <h1 className="d-flex justify-content-center">signin.</h1>
+      <h3 className="d-flex justify-content-center">we need you!</h3>
       <div className="card mx-auto m-3" style={{ width: "21rem" }}>
         <div className="card-body">
           <form onSubmit={handleSubmit}>
@@ -85,30 +86,6 @@ const SignUpForm = () => {
                 onChange={handleChange}
               />
             </div>
-            <label htmlFor="first" className="form-label">
-              first name.
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              autoComplete="username"
-              id="first"
-              name="first"
-              aria-describedby="first"
-              onChange={handleChange}
-            />
-            <label htmlFor="last" className="form-label">
-              last name.
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              autoComplete="family-name"
-              id="last"
-              name="last"
-              aria-describedby="last"
-              onChange={handleChange}
-            />
             <div className="mb-3 form-check">
               <input
                 type="checkbox"
@@ -118,14 +95,14 @@ const SignUpForm = () => {
                 onChange={handleChange}
               />
               <label className="form-check-label" htmlFor="exampleCheck1">
-                remember me.
+                Remember me
               </label>
             </div>
             <button
               type="submit"
               className="btn btn-primary"
               onSubmit={handleSubmit}>
-              signup.
+              signin.
             </button>
           </form>
         </div>
@@ -134,4 +111,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default SignInForm;

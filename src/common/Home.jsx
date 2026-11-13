@@ -1,6 +1,6 @@
 import React from "react";
 import ShowEventTemplates from "../events/ShowEventTemplates";
-import ShowQualifiedRoles from "../roles/ShowQualifiedRoles.js";
+import ShowQualifiedRoles from "../roles/ShowQualifiedRoles";
 import UserSignedUpRoles from "../users/UserSignedUpRoles";
 
 const Home = () => {

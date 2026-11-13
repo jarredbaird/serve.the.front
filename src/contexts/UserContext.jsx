@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import jwt from "jsonwebtoken";
+import { jwtDecode } from "jwt-decode";
 import useLocalStorage from "../hooks/useLocalStorage";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 /** Context: provides currentUser object and setter for it throughout app. */
 
@@ -15,12 +15,16 @@ const UserProvider = (props) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Attach the JWT to every API request (the backend's auth middleware reads it).
+  if (token) axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  else delete axios.defaults.headers.common.Authorization;
+
   useEffect(() => {
     setLoading(true);
     const loadCurrentUser = async () => {
       if (token) {
         try {
-          let { username } = jwt.decode(token);
+          let { username } = jwtDecode(token);
           let currentUser = await axios.get(`${BASE_URL}/users/${username}`);
           setCurrentUser(currentUser.data);
         } catch (e) {
