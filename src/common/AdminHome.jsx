@@ -1,5 +1,5 @@
 import React from "react";
-import ShowScheduledEvents from "../events/ShowScheduledRoles.js";
+import ShowScheduledEvents from "../events/ShowScheduledRoles";
 import ShowEventTemplates from "../events/ShowEventTemplates";
 import ShowUsers from "../users/ShowUsers";
 

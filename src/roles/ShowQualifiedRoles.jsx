@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import UserSignedUpRoles from "../users/UserSignedUpRoles";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 const ShowQualifiedRoles = () => {
   const { currentUser } = useContext(UserContext);

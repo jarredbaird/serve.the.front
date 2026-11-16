@@ -1,5 +1,5 @@
 import React from "react";
-import TheCalendar from "./common/react-calendar.js";
+import TheCalendar from "./common/react-calendar";
 
 const Authed = () => {
   return (

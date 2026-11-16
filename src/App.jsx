@@ -1,6 +1,6 @@
-import InTheBeginning from "./InTheBeginning.js";
+import InTheBeginning from "./InTheBeginning";
 import "./App.css";
-import { UserProvider } from "./contexts/UserContext.js";
+import { UserProvider } from "./contexts/UserContext";
 import { BrowserRouter } from "react-router-dom";
 
 function App() {

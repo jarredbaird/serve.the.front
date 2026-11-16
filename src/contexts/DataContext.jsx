@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { UserContext } from "./UserContext";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 /** Context: provides allll the data for the app. */
 
@@ -16,26 +17,34 @@ const DataProvider = (props) => {
   const [scheduledRoles, setScheduledRoles] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const { token } = useContext(UserContext);
+
+  // Loads everything in parallel. Endpoints the current user can't access
+  // (e.g. admin-only /ministries for a volunteer) just come back empty
+  // instead of leaving the app stuck on "loading".
   const getData = async () => {
     setLoading(true);
-    let allMinistries = await axios.get(`${BASE_URL}/ministries/`);
-    setMinistries(allMinistries.data);
-    let allRoles = await axios.get(`${BASE_URL}/roles/`);
-    setRoles(allRoles.data);
-    let allEventTemplates = await axios.get(`${BASE_URL}/event-templates`);
-    setEventTemplates(allEventTemplates.data);
-    let allUsers = await axios.get(`${BASE_URL}/users/`);
-    setUsers(allUsers.data);
-    let allScheduledRoles = await axios.get(
-      `${BASE_URL}/scheduled-events/roles`
-    );
-    setScheduledRoles(allScheduledRoles.data);
+    const get = (path) =>
+      axios.get(`${BASE_URL}${path}`).then((r) => r.data).catch(() => []);
+    const [m, r, et, u, sr] = await Promise.all([
+      get("/ministries"),
+      get("/roles"),
+      get("/event-templates"),
+      get("/users"),
+      get("/scheduled-events/roles"),
+    ]);
+    setMinistries(m);
+    setRoles(r);
+    setEventTemplates(et);
+    setUsers(u);
+    setScheduledRoles(sr);
     setLoading(false);
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (token) getData();
+    else setLoading(false);
+  }, [token]);
 
   if (loading) return <div>Still loading data...</div>;
 
