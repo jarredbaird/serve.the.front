@@ -70,7 +70,7 @@ const SignInForm = () => {
                 onChange={handleChange}
               />
               <div id="establishTrust" className="form-text">
-                We'll never share your email with anyone else.
+                We&rsquo;ll never share your email with anyone else.
               </div>
             </div>
             <div className="mb-3">
