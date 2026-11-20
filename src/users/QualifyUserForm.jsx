@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "../account/AuthForm.css";
 import { DataContext } from "../contexts/DataContext";
@@ -12,7 +12,7 @@ const QualifyUserForm = () => {
   const initialUsers = users.map((user) => user.uId);
   const initialMinistries = ministries.map((ministry) => ministry.mId);
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const [formErrors, setFormErrors] = useState("");
   const [selected, setSelected] = useState({
     users: [],
@@ -39,7 +39,7 @@ const QualifyUserForm = () => {
         })
       );
       if (result.data) {
-        history.push("/home");
+        navigate("/home");
       } else {
         setFormErrors(result.errors);
       }

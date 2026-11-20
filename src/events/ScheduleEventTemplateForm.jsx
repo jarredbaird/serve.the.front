@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import { DataContext } from "../contexts/DataContext";
@@ -8,7 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 const ScheduleEventTemplateForm = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { eventTemplates } = useContext(DataContext);
   const [formErrors, setFormErrors] = useState("");
   const [startDate, setStartDate] = useState(new Date());
@@ -33,7 +33,7 @@ const ScheduleEventTemplateForm = () => {
         endTime: endDate,
       });
       if (result.data) {
-        history.push("/home");
+        navigate("/home");
       } else {
         setFormErrors(result.errors);
       }

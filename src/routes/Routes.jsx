@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Routes as RouterRoutes, Route, Navigate } from "react-router-dom";
 import Authed from "../Authed";
 import CreateEventTemplateForm from "../events/CreateEventTemplateForm";
 import ShowEventTemplates from "../events/ShowEventTemplates";
@@ -13,36 +13,18 @@ import ScheduleEventTemplateForm from "../events/ScheduleEventTemplateForm";
 
 function Routes() {
   return (
-    <Switch>
-      <PrivateRoute exact path="/users/qualify">
-        <QualifyUserForm />
-      </PrivateRoute>
-      <PrivateRoute exact path="/event-templates/create">
-        <CreateEventTemplateForm />
-      </PrivateRoute>
-      <PrivateRoute exact path="/event-templates/schedule">
-        <ScheduleEventTemplateForm />
-      </PrivateRoute>
-      <PrivateRoute exact path="/event-templates/view">
-        <ShowEventTemplates />
-      </PrivateRoute>
-      <PrivateRoute exact path="/authed">
-        <Authed />
-      </PrivateRoute>
-      <PrivateRoute exact path="/home">
-        <Home />
-      </PrivateRoute>
-      <PrivateRoute exact path="/home/admin">
-        <AdminHome />
-      </PrivateRoute>
-      <Route exact path="/signin">
-        <SignInForm />
-      </Route>
-      <Route exact path="/signup">
-        <SignupForm />
-      </Route>
-      <Redirect to="/home" />
-    </Switch>
+    <RouterRoutes>
+      <Route path="/users/qualify" element={<PrivateRoute><QualifyUserForm /></PrivateRoute>} />
+      <Route path="/event-templates/create" element={<PrivateRoute><CreateEventTemplateForm /></PrivateRoute>} />
+      <Route path="/event-templates/schedule" element={<PrivateRoute><ScheduleEventTemplateForm /></PrivateRoute>} />
+      <Route path="/event-templates/view" element={<PrivateRoute><ShowEventTemplates /></PrivateRoute>} />
+      <Route path="/authed" element={<PrivateRoute><Authed /></PrivateRoute>} />
+      <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
+      <Route path="/home/admin" element={<PrivateRoute><AdminHome /></PrivateRoute>} />
+      <Route path="/signin" element={<SignInForm />} />
+      <Route path="/signup" element={<SignupForm />} />
+      <Route path="*" element={<Navigate to="/home" replace />} />
+    </RouterRoutes>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../contexts/UserContext";
 
@@ -9,13 +9,13 @@ const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 const SignUpForm = () => {
   const { currentUser, setToken } = useContext(UserContext);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [formErrors, setFormErrors] = useState("");
 
-  if (currentUser) {
-    history.push("/home");
-  }
+  // Already signed in? Go home. (Declarative redirect: calling navigate()
+  // during render is not allowed in React Router v6.)
+  if (currentUser) return <Navigate to="/home" replace />;
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
@@ -34,7 +34,7 @@ const SignUpForm = () => {
 
       if (result.data.token) {
         setToken(result.data.token);
-        history.push("/home");
+        navigate("/home");
       } else {
         setFormErrors(result.errors);
       }
