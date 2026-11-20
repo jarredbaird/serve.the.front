@@ -9,15 +9,17 @@ const ShowUsers = () => {
       <div className="row row-cols-1 row-cols-md-1 g-4">
         {users.map((user) => {
           return (
-            <div className="col">
+            <div className="col" key={user.uId}>
               <div className="card">
                 <div className="card-body">
                   <h5 className="card-title">{`${user.uName}`}</h5>
                   <p className="card-text">{user.username}</p>
                   <p className="card-text">
-                    {user.qualifiedRoles.map((qualifiedRoles) => {
+                    {user.qualifiedRoles.map((qualifiedRoles, i) => {
                       return (
-                        <span className="badge rounded-pill bg-primary mx-1">
+                        <span
+                          key={qualifiedRoles.rId ?? i}
+                          className="badge rounded-pill bg-primary mx-1">
                           {qualifiedRoles.rTitle}
                         </span>
                       );

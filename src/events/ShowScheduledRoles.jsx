@@ -11,7 +11,7 @@ const ShowScheduledRoles = () => {
       <div className="row row-cols-1 row-cols-md-1 g-4">
         {scheduledRoles.map((scheduledRole) => {
           return (
-            <div className="col">
+            <div className="col" key={scheduledRole.seId}>
               <div className="card">
                 <div className="card-body">
                   <h5 className="card-title">{`${new Date(
@@ -21,9 +21,11 @@ const ShowScheduledRoles = () => {
                     Location: {scheduledRole.location}
                   </p>
                   <p className="card-text">
-                    {scheduledRole.requiredRoles.map((requiredRole) => {
+                    {scheduledRole.requiredRoles.map((requiredRole, i) => {
+                      // a template can require the same role more than once
                       return (
                         <span
+                          key={`${requiredRole.rId}-${i}`}
                           className="badge rounded-pill bg-secondary m-1"
                           style={{ fontSize: "1rem" }}>
                           {requiredRole.rTitle} /{" "}
