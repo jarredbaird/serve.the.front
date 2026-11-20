@@ -34,7 +34,6 @@ const CreateEventTemplateForm = () => {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     const selectedRoles = selected.roles;
-    debugger;
     try {
       let result = await axios.post(`${BASE_URL}/event-templates/`, {
         ...formData,
@@ -73,7 +72,7 @@ const CreateEventTemplateForm = () => {
             the future.
           </h4>
           <h6 className="d-flex justify-content-center">
-            (e.g. kid's church every sunday, worship practice/serve every
+            (e.g. kid&rsquo;s church every sunday, worship practice/serve every
             sunday, etc)
           </h6>
           <form onSubmit={handleSubmit}>

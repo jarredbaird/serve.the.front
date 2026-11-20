@@ -65,7 +65,7 @@ const QualifyUserForm = () => {
           </h4>
           <h6 className="d-flex justify-content-center">
             (e.g. maxwell has been trained and can now work the espresso
-            machine. you would add the "barista master" role to his profile)
+            machine. you would add the &ldquo;barista master&rdquo; role to his profile)
           </h6>
           <form onSubmit={handleSubmit}>
             {/* Show the users first... */}
