@@ -68,7 +68,7 @@ const ShowQualifiedRoles = () => {
           <div className="row row-cols-1 row-cols-md-1 g-4">
             {currentUserScheduledQualifiedRoles.map((scheduledEvent) => {
               return (
-                <div className="col">
+                <div className="col" key={scheduledEvent.seId}>
                   <div className="card">
                     <div className="card-body">
                       <h5 className="card-title">{`${new Date(
@@ -77,13 +77,13 @@ const ShowQualifiedRoles = () => {
                       <p className="card-text">
                         Location: {scheduledEvent.location}
                       </p>
-                      <div class="list-group list-group-flush">
+                      <div className="list-group list-group-flush">
                         {scheduledEvent.requiredRoles.map((requiredRole) => {
                           return (
-                            <>
+                            <React.Fragment key={requiredRole.etrrId}>
                               <li className="list-group-item d-flex justify-content-between align-items-start">
-                                <div class="ms-2 me-auto">
-                                  <div class="fw-bold">
+                                <div className="ms-2 me-auto">
+                                  <div className="fw-bold">
                                     {requiredRole.rTitle}
                                   </div>
                                   <em>Current Volunteer: </em>
@@ -132,7 +132,7 @@ const ShowQualifiedRoles = () => {
                                   )}
                                 </div>
                               </li>
-                            </>
+                            </React.Fragment>
                           );
                         })}
                       </div>
