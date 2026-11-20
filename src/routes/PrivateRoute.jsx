@@ -1,29 +1,13 @@
 import React, { useContext } from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 
-function PrivateRoute({ exact, path, children }) {
+/** Wrap a route's element: renders children when signed in, else sends the
+ *  visitor to /signin.  <Route path="/x" element={<PrivateRoute><X /></PrivateRoute>} /> */
+function PrivateRoute({ children }) {
   const { currentUser } = useContext(UserContext);
-
-  console.debug(
-    "PrivateRoute",
-    "exact=",
-    exact,
-    "path=",
-    path,
-    "currentUser=",
-    currentUser
-  );
-
-  if (!currentUser) {
-    return <Redirect to="/signin" />;
-  }
-
-  return (
-    <Route exact={exact} path={path}>
-      {children}
-    </Route>
-  );
+  if (!currentUser) return <Navigate to="/signin" replace />;
+  return children;
 }
 
 export default PrivateRoute;

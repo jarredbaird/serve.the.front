@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "../account/AuthForm.css";
 import { DataContext } from "../contexts/DataContext";
@@ -8,7 +8,7 @@ import FormSelectParts from "../common/FormSelectParts";
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 const CreateEventTemplateForm = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({});
   const { ministries, roles, setRoles, eventTemplates, setEventTemplates } =
     useContext(DataContext);
@@ -47,7 +47,7 @@ const CreateEventTemplateForm = () => {
       );
       if (result.data) {
         setEventTemplates([...eventTemplates, result.data]);
-        history.push("/home");
+        navigate("/home");
       } else {
         setFormErrors(result.errors);
       }
